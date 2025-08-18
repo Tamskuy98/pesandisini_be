@@ -1,0 +1,18 @@
+# Mengabaikan file log
+*.log
+
+# Mengabaikan folder
+node_modules/
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Mengabaikan file konfigurasi lokal
+.env
+
+# Mengabaikan folder build/output
+dist/
+build/
+
+# Mengabaikan file system
+.DS_Store
+Thumbs.db
