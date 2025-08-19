@@ -10,9 +10,22 @@ const auth = () => {
       return resolve({ status: true, client });
     }
 
-    client = new Client({
-      authStrategy: new LocalAuth()
-    });
+  const client = new Client({
+  authStrategy: new LocalAuth(),
+    puppeteer: {
+      headless: true, 
+      args: [
+        '--no-sanbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process',
+        '--disable-gpu',
+        '--disable-extensions'],
+    }
+})
 
     client.on('qr', (qr) => {
       console.log('🔒 QR Code perlu discan:');
