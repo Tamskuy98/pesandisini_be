@@ -11,7 +11,20 @@ const auth = () => {
     }
 
     client = new Client({
-      authStrategy: new LocalAuth()
+      authStrategy: new LocalAuth(),
+      puppeteer: {
+        headless: true,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-accelerated-2d-canvas',
+          '--no-first-run',
+          '--no-zygote',
+          '--single-process', // kadang diperlukan
+          '--disable-gpu'
+        ]
+      }
     });
 
     client.on('qr', (qr) => {
