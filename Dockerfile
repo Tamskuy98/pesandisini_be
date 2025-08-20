@@ -1,7 +1,7 @@
-# Gunakan image resmi Node dengan Chromium dependencies
+# Base image ringan dengan Node.js 20
 FROM node:20-slim
 
-# Puppeteer membutuhkan beberapa dependencies untuk Chromium
+# Install Chromium dependencies yang dibutuhkan Puppeteer
 RUN apt-get update && apt-get install -y \
   wget \
   ca-certificates \
@@ -20,17 +20,20 @@ RUN apt-get update && apt-get install -y \
   libxdamage1 \
   libxrandr2 \
   xdg-utils \
+  libdrm2 \
+  libgbm1 \
+  libxshmfence1 \
   --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 
 # Buat working directory
 WORKDIR /app
 
-# Salin file yang diperlukan
+# Salin file package.json dan install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Salin source code
+# Salin seluruh project
 COPY . .
 
 # Jalankan aplikasi
