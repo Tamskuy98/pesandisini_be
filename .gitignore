@@ -3,8 +3,6 @@
 
 # Mengabaikan folder
 node_modules/
-.wwebjs_auth/
-.wwebjs_cache/
 
 # Mengabaikan file konfigurasi lokal
 .env
