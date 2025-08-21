@@ -1,6 +1,6 @@
 const { getBarcode } = require('../helper/auth.js');
 const qrcode = require('qrcode');
-const getOrder = require('../helper/orderservice.js');
+const { getOrder } = require('../helper/orderservice.js');
 
 
 exports.userorder = async (req, res)=>{
