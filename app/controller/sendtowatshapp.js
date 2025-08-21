@@ -1,5 +1,6 @@
 const { getBarcode } = require('../helper/auth.js');
 const qrcode = require('qrcode');
+const getOrder = require('../helper/orderservice.js');
 
 
 exports.userorder = async (req, res)=>{
@@ -17,7 +18,7 @@ if(!data || data == null){
 }
 
 const result = await getOrder(data);
-console.log(` ini nmr setelah getOrder ${result.number}`);
+// console.log(` ini nmr setelah getOrder ${result.number}`);
 if(result.error) {
    return res.status(400).json({succes: true, message: result.error, data:null});
 }
