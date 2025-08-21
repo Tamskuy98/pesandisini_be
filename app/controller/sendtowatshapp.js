@@ -1,5 +1,5 @@
-const { getOrder } = require('../helper/orderservice.js');
-const { error } = require('qrcode-terminal');
+const { getBarcode } = require('../helper/auth.js');
+const qrcode = require('qrcode');
 
 
 exports.userorder = async (req, res)=>{
@@ -24,6 +24,21 @@ if(result.error) {
 if(result.success) {
    return res.status(400).json({succes: true, message: result.success, data:result});
 }
+}
+
+
+exports.generatebarcode = async (req, res)=> {
+
+ const barcode = getBarcode();
+    try {
+         const qrPng = await qrcode.toBuffer(barcode, { type: "png" });
+        res.type("png");
+        res.send(qrPng);
+        
+    } catch (err) {
+        console.error("Error generating QR:", err);
+        res.status(500).send("Error generating QR");
+    }
 }
 
 

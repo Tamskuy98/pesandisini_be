@@ -1,8 +1,10 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+// const qrcode = require('qrcode-terminal');
 
 let client = null;
 let isAuthenticated = false;
+let qrCodeString = false;
+
 
 const auth = () => {
   return new Promise((resolve, reject) => {
@@ -27,9 +29,15 @@ const auth = () => {
       }
     });
 
+    // client.on('qr', (qr) => {
+    //   console.log('🔒 QR Code perlu discan:');
+    //   qrcode.generate(qr, { small: true });
+    // });
+
     client.on('qr', (qr) => {
-      console.log('🔒 QR Code perlu discan:');
-      qrcode.generate(qr, { small: true });
+      console.log('🔒 QR Code perlu discan');
+      qrCodeString = true;
+      convertimgqr = qr;
     });
 
     client.on('ready', () => {
@@ -60,4 +68,11 @@ const getClient = () => {
   return client;
 };
 
-module.exports = { auth, getClient };
+const getBarcode = () => {
+  if (!qrCodeString) {
+    throw new Error('Gagal generate barcode');
+  }
+  return convertimgqr;
+};
+
+module.exports = { auth, getClient, getBarcode };
